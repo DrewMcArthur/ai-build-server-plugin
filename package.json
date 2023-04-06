@@ -1,11 +1,11 @@
 {
   "name": "cmd-api-server",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "a simple webserver that provides an api to run a bash command specified on boot",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "build": "npx tsc",
-    "start": "npm run build && node index.js",
+    "start": "npm run build && node server.js",
     "test": "npm run build && node test-client.js"
   },
   "keywords": [
