@@ -1,31 +1,31 @@
 import { exec } from "child_process";
 import { Server } from 'socket.io';
-const io = new Server()
+const server = new Server()
 
 const port = 8080;
-// const cmd = process.argv[2];
-// console.log("created server with cmd: " + cmd);
 
-io.on( 'error', ( err ) =>
+server.on( 'error', ( err ) =>
 {
   console.error( err );
 })  
 
-io.on( 'connection', ( socket ) =>
+server.on( 'connection', ( client ) =>
 {
-  socket.on( 'build folder', ( folder ) =>
+  console.log('client connected')
+  client.on( 'build folder', ( folder ) =>
   {
     console.log(`building folder ${folder}...`)
     exec( `cd ${folder} && cargo build`, ( error, stdout, stderr ) =>
     {
-      socket.emit("output", stdout);
-      socket.emit("error", error );
-      socket.emit("error", stderr );
-      socket.emit("cmd finished");
+      if (stdout) client.emit("output", stdout);
+      if (error) client.emit("error", error );
+      if (stderr) client.emit("error", stderr );
+      client.emit("cmd finished");
       console.log(`done.  output sent to client.`)
     })
   })
 })
 
 // Start the server on port
-io.listen( port );
+server.listen( port );
+console.log( `server listening on port ${port}` );
