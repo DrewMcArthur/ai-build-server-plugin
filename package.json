@@ -1,0 +1,29 @@
+{
+  "name": "cmd-api-server",
+  "version": "1.0.0",
+  "description": "a simple webserver that provides an api to run a bash command specified on boot",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "npm run build && node index.js",
+    "test": "npm run build && node test-client.js"
+  },
+  "keywords": [
+    "webserver",
+    "api",
+    "langchain",
+    "plugin",
+    "bash"
+  ],
+  "author": "drewmca.dev",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "socket.io": "^4.6.1",
+    "socket.io-client": "^4.6.1",
+    "ts-command-line-args": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/socket.io": "^3.0.2",
+    "typescript": "^5.0.3"
+  }
+}
