@@ -1,15 +1,16 @@
-import { io } from "socket.io-client";
+import util from "util";
+import { request } from "urllib";
 
-const socket = io( "http://localhost:8080" );
+const server_url = "http://localhost:8080"; 
+const build_folder = "rust-cms-json-parser";
+const req_url = `${server_url}/folders/${build_folder}/build`
 
-socket.emit( 'build folder', "../rust-cms-json-parser" );
-
-socket.on( "output", ( data ) => console.log( data ) );
-
-socket.on( "error", ( error ) => console.error( error ) );
-
-socket.on( "cmd finished", () =>
-{
-  console.log( "cmd finished" );
-  socket.close();
-} )
+console.log(`POST ${req_url}`)
+request( req_url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+})
+  .then( res => console.log(`response: ${ res['data'] }`))
+  .catch(err => console.error(err))
