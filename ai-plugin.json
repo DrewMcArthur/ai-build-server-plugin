@@ -1,0 +1,37 @@
+{
+  "name": "code-server",
+  "version": "1.0.0",
+  "description": "A plugin for building and testing code projects",
+  "url": "http://localhost:8081",
+  "endpoints": [
+    {
+      "name": "build",
+      "description": "Build a code project in a given folder",
+      "url": "/folders/:folder/build/:language",
+      "method": "POST",
+      "params": [
+        {
+          "name": "folder",
+          "type": "string",
+          "required": true,
+          "description": "The name of the folder containing the code project to build"
+        },
+        {
+          "name": "language",
+          "type": "string",
+          "required": true,
+          "description": "The programming language used by the code project to build"
+        }
+      ],
+      "response": {
+        "type": "json",
+        "format": {
+          "output": {
+            "type": "string",
+            "description": "The output of the build process"
+          }
+        }
+      }
+    }
+  ]
+}
