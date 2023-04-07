@@ -22,12 +22,15 @@ To see example usage, you can run `npm test`, which executes the `test-client.ts
 
 the server makes available one endpoint, other than `GET /.well-known/ai-plugin.json`:
 
-```
+```http
 POST /folders/:folder/build/:language
 ```
 
-If you execute the above command, the server will try to run 
-`exec('cargo build', {cwd: \`../${folder}\`})`, and will send back the output.
+If you execute the above command, the server will try to run and return the output of
+
+```js
+exec('cargo build', {cwd: `../${folder}`})
+```
 
 Take a look at the `ai-plugin.json` file for more information on how to use the API.
 
