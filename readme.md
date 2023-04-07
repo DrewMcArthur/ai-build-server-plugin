@@ -1,19 +1,41 @@
-# CMD API Server
+# AI Build Server Plugin
 
-A simple socket-based server to run predefined bash commands written in TypeScript.
+A simple express-based server to run predefined build commands written in TypeScript.
 
 ### Background
 
 I want LLMs to code for me, so the goal of this project is to provide a server and 
 an openai-style plugin to allow for an LLM to say "build this folder of code", and 
 receive the output of that command.  Obviously we don't want to just give the LLM 
-access to bash, so the build command is specified when you start up the server.
+access to bash, so the build command is specified in the server code.
 
 ## Usage
 
 A simple `npm install` handles the dependencies.  `npm start` should fire up the server.
 
-Currently, the build command is hardcoded as `cargo build`, but maybe 
-we just expect a `build.sh` script to exist in whatever folder we're trying to build.
+Currently, the only build command implemented is `cargo build`, 
+but more languages can easily be added.
 
 To see example usage, you can run `npm test`, which executes the `test-client.ts` file.
+
+## API
+
+the server makes available one endpoint, other than `GET /.well-known/ai-plugin.json`:
+
+```
+POST /folders/:folder/build/:language
+```
+
+If you execute the above command, the server will try to run 
+`exec('cargo build', {cwd: \`../${folder}\`})`, and will send back the output.
+
+Take a look at the `ai-plugin.json` file for more information on how to use the API.
+
+## Notes & TODO
+
+maybe the language should be a param, so the url looks like `/folders/:folder/build?lang=:language`.
+or, it'd be neat if the server could just figure out automatically what language to use.
+
+## Contributing
+
+Feel free to submit PRs with other languages implemented, or any of the changes described above!
